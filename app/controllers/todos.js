@@ -1,6 +1,8 @@
 // This controller will respond to user action by using its newTitle property as the title of a new todo whose isCompleted property is false. 
 // Then it will clear its newTitle property which will synchronize to the template and reset the textfield. 
 // Finally, it persists any unsaved changes on the todo.
+import Ember from 'ember';
+
 export
 default Ember.ArrayController.extend({
     actions: {

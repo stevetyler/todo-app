@@ -1,4 +1,6 @@
 // Implement the controller for each todo by matching the name used as the itemController value to a class in your application Todos.TodoController.
+import Ember from 'ember';
+
 export
 default Ember.ObjectController.extend({
 
