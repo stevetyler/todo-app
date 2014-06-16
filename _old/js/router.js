@@ -30,16 +30,6 @@ Todos.TodosIndexRoute = Ember.Route.extend({
     }
 });
 
-// Duplicated from above ?
-Todos.Router.map(function() {
-    this.resource('todos', {
-        path: '/'
-    }, function() {
-        // Additional child routes    
-        this.route('active');
-    });
-});
-
 // The model data for this route is the collection of todos whose isCompleted property is false. 
 // When a todo's isCompleted property changes this collection will automatically update to add or remove the todo appropriately.
 

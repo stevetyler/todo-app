@@ -1,0 +1,24 @@
+<ul id="todo-list">
+
+    <!-- // Allow a user to mark a todo as complete or incomplete and persist the updated information. -->
+    {{#each itemController="todo"}}
+
+        <!-- // Applies the CSS class editing when the controller's isEditing property is true and removes it when the isEditing property is false. -->
+        <li {{bind-attr class="isCompleted:completed isEditing:editing"}}>
+            {{#if isEditing}}
+
+                <!-- // Pressing the <enter> key will trigger the acceptChanges event on the instance of TodoController. Moving focus away from the <input> will trigger the focus-out event, calling a method acceptChanges on this view's instance of TodoController -->                                    
+                <!-- // Additionally, we connect the value property of this <input> to the title property of this instance of TodoController. We will not implement a title property on the controller so it will retain the default behavior of proxying all requests to its model. -->
+                {{edit-todo class="edit" value=title focus-out="acceptChanges"
+                insert-newline="acceptChanges"}}
+            {{else}}
+                {{input type="checkbox" checked=isCompleted class="toggle"}}
+                <label {{action "editTodo" on="doubleClick"}}>{{title}}</label>
+
+                <!-- // Clicking this button will remove the todo and update the display of remaining incomplete todos and remaining completed todos appropriately. -->
+                <button {{action "removeTodo"}} class="destroy"></button>
+            {{/if}}
+          </li>
+    {{/each}}
+</ul>
+
