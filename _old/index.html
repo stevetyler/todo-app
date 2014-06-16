@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Ember.js • TodoMVC</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <script type="text/x-handlebars" data-template-name="todos/index">
+            <ul id="todo-list">
+
+                <!-- // Allow a user to mark a todo as complete or incomplete and persist the updated information. -->
+                {{#each itemController="todo"}}
+
+                    <!-- // Applies the CSS class editing when the controller's isEditing property is true and removes it when the isEditing property is false. -->
+                    <li {{bind-attr class="isCompleted:completed isEditing:editing"}}>
+                        {{#if isEditing}}
+
+                            <!-- // Pressing the <enter> key will trigger the acceptChanges event on the instance of TodoController. Moving focus away from the <input> will trigger the focus-out event, calling a method acceptChanges on this view's instance of TodoController -->                                    
+                            <!-- // Additionally, we connect the value property of this <input> to the title property of this instance of TodoController. We will not implement a title property on the controller so it will retain the default behavior of proxying all requests to its model. -->
+                            {{edit-todo class="edit" value=title focus-out="acceptChanges"
+                            insert-newline="acceptChanges"}}
+                        {{else}}
+                            {{input type="checkbox" checked=isCompleted class="toggle"}}
+                            <label {{action "editTodo" on="doubleClick"}}>{{title}}</label>
+
+                            <!-- // Clicking this button will remove the todo and update the display of remaining incomplete todos and remaining completed todos appropriately. -->
+                            <button {{action "removeTodo"}} class="destroy"></button>
+                        {{/if}}
+                      </li>
+                {{/each}}
+            </ul>
+
+        </script>
+
+        <script type="text/x-handlebars" data-template-name="todos">
+            <section id="todoapp">
+                <header id="header">
+                    <h1>todos</h1>
+
+                    <!-- // This will render an <input> element at this location with the same id and placeholder attributes applied. It will also connect the newTitle property of this template's controller to the value attribute of the <input>. When one changes, the other will automatically update to remain synchronized. Additionally, we connect user interaction (pressing the <enter> key) to a method createTodo on this template's controller. -->
+                    {{input type="text" id="new-todo" placeholder="What needs to be done?" value=newTitle action="createTodo"}}
+                </header>
+
+                <section id="main">
+                    
+                    <!-- // Handlebars helper designates an area of a template that will dynamically update as we transition between routes. Our  first new child route will fill this area with the list of all todos in the application. -->
+                    {{outlet}}
+                    {{input type="checkbox" id="toggle-all" checked=allAreDone}}
+                </section>
+
+                <footer id="footer">
+                    <span id="todo-count">
+
+                        <!-- // Reflect the actual number of completed todos. -->
+                        <strong>{{remaining}}</strong> {{inflection}} left
+                    </span>
+                    <ul id="filters">
+                        <li>
+                            {{#link-to "todos.index" activeClass="selected"}}All{{/link-to}}
+                        </li>
+                        <li>
+                            {{#link-to "todos.active" activeClass="selected"}}Active{{/link-to}}
+                        </li>
+                        <li>
+                            {{#link-to "todos.completed" activeClass="selected"}}Completed{{/link-to}}
+                        </li>
+                    </ul>
+
+                    {{#if hasCompleted}}
+                        <button id="clear-completed" {{action "clearCompleted"}}>Clear completed ({{completed}})
+                        </button>
+                    {{/if}}
+                </footer>
+            </section>
+
+            <footer id="info">
+                <p>Double-click to edit a todo</p>
+            </footer>
+        </script>
+
+        <script src="js/libs/jquery-1.10.2.min.js"></script>
+        <script src="js/libs/handlebars-1.0.0.js"></script>
+        <script src="js/libs/ember.js"></script>
+        <script src="js/libs/ember-data.js"></script>
+        <script src="js/libs/localstorage_adapter.js"></script>
+
+        <script src="js/application.js"></script>
+        <script src="js/router.js"></script>
+        <script src="js/models/todo.js"></script>
+        <script src="js/controllers/todos_controller.js"></script>
+        <script src="js/controllers/todo_controller.js"></script>
+        <script src="js/views/edit_todo_view.js"></script>
+    </body>
+</html>

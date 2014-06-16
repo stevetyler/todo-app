@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>TodoApp</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {{BASE_TAG}}
+
+    <link rel="stylesheet" href="assets/vendor.css">
+    <link rel="stylesheet" href="assets/todo-app.css">
+  </head>
+  <body>
+    <script>
+      window.TodoAppENV = {{ENV}};
+    </script>
+    <script src="assets/todo-app.js"></script>
+    <script>
+      window.TodoApp = require('todo-app/app')['default'].create(TodoAppENV.APP);
+    </script>
+  </body>
+</html>
