@@ -3,6 +3,8 @@
 // persists these changes, then redisplays the todo with its newly updated text.
 
 // To accomplish this, we'll create a new custom component and register it with Handlebars to make it available to our templates.
+import Ember from 'ember';
+
 export
 default Ember.TextField.extend({
     didInsertElement: function() {
@@ -10,4 +12,4 @@ default Ember.TextField.extend({
     }
 });
 
-Ember.Handlebars.helper('edit-todo', Todos.EditTodoView); // ??
+// Ember.Handlebars.helper('edit-todo', Todos.EditTodoView); // Need to Export module
